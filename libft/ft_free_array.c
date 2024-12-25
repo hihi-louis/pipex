@@ -6,11 +6,12 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:36:48 by tripham           #+#    #+#             */
-/*   Updated: 2024/12/24 17:37:33 by tripham          ###   ########.fr       */
+/*   Updated: 2024/12/25 21:05:52 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	free_array(char **array) 
+#include "libft.h"
+void	ft_free_array(char **array) 
 {
     int	i;
 

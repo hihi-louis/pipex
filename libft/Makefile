@@ -1,7 +1,7 @@
 NAME := libft.a
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -fPIC
 
 SOURCES :=     ft_putnbr_fd.c	\
 			ft_putendl_fd.c	\
@@ -36,7 +36,9 @@ SOURCES :=     ft_putnbr_fd.c	\
 			ft_strnstr.c	\
 			ft_strrchr.c	\
 			ft_tolower.c	\
-			ft_toupper.c
+			ft_toupper.c	\
+			ft_free_array.c
+
 
 BONUS    :=    ft_lstnew_bonus.c    \
             		ft_lstadd_front_bonus.c    \

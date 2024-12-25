@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:36:56 by tripham           #+#    #+#             */
-/*   Updated: 2024/12/24 17:37:48 by tripham          ###   ########.fr       */
+/*   Updated: 2024/12/25 20:57:13 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,9 @@ void					ft_lstadd_back(t_list **lst, t_list *new);
 void					ft_lstdelone(t_list *lst, void (*del)(void *));
 void					ft_lstclear(t_list **lst, void (*del)(void *));
 void					ft_lstiter(t_list *lst, void (*f)(void *));
-t_list					*ft_lstmap(t_list *lst, void *(*f)(void *),
-							void (*del)(void *));
+t_list					*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-void	free_array(char **array);
+void	ft_free_array(char **array);
 char	*ft_strjoin_free(char *s1, const char *s2);
 
 int	ft_putchar(char c);

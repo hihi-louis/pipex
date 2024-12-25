@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:20:41 by tripham           #+#    #+#             */
-/*   Updated: 2024/11/18 18:45:20 by tripham          ###   ########.fr       */
+/*   Updated: 2024/12/25 21:04:12 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,4 @@ size_t	ft_strlen(const char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
-}
-#include <stdio.h>
-#include <string.h>
-int main()
-{
-	char *s = NULL;
-	printf("%ld\n", strlen(s));
-	//printf("%ld", strlen(s));
-	
 }
