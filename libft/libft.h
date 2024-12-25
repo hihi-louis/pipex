@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 typedef unsigned char	t_byte;
 
@@ -80,4 +81,12 @@ t_list					*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 void	free_array(char **array);
 char	*ft_strjoin_free(char *s1, const char *s2);
+
+int	ft_putchar(char c);
+int	ft_putnbr(int n);
+int	ft_putstr(char *str);
+int	ft_putpointer(unsigned long long p);
+int	ft_puthex(unsigned long long n, const char type);
+int	ft_putui(unsigned int n);
+int	ft_printf(const char *format, ...);
 #endif
