@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_access.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 23:18:37 by tripham           #+#    #+#             */
-/*   Updated: 2024/12/25 21:29:36 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/01 10:47:53 by trietpham        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,3 @@ char *ft_access(char *cmd, char **envp)
 	return (NULL);
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	char	*result;
-	
-	if (argc != 2)
-	{
-		printf("Usage: %s <command>\n", argv[0]);
-        return (1);
-	}
-
-	result = ft_access(argv[1], envp);
-	if (result)
-    {
-        printf("Executable path: %s\n", result);
-        free(result);
-    }
-	else
-	{
-		 printf("Command not found: %s\n", argv[1]);
-	}
-	return (0);
-}

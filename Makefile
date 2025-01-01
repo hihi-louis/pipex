@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+         #
+#    By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/25 21:13:56 by tripham           #+#    #+#              #
-#    Updated: 2024/12/25 21:14:08 by tripham          ###   ########.fr        #
+#    Updated: 2025/01/01 10:48:34 by trietpham        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -Ilibft
 
 # Project files
-NAME = pipex
-SRCS = ft_access.c
+NAME = a.out
+SRCS = ft_access.c main.c
 OBJS = $(SRCS:.c=.o)
 
 # Libft
