@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:36:56 by tripham           #+#    #+#             */
-/*   Updated: 2024/12/25 20:57:13 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/01 18:25:38 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_list					*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_free_array(char **array);
 char	*ft_strjoin_free(char *s1, const char *s2);
 
-int	ft_putchar(char c);
+int	ft_putchar_fd(int fd, char c);
 int	ft_putnbr(int n);
 int	ft_putstr(char *str);
 int	ft_putpointer(unsigned long long p);
