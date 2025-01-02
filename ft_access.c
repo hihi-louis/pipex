@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_access.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 23:18:37 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/01 10:47:53 by trietpham        ###   ########.fr       */
+/*   Updated: 2025/01/02 22:33:11 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "mylib/includes/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -56,3 +56,25 @@ char *ft_access(char *cmd, char **envp)
 	return (NULL);
 }
 
+int main(int argc, char **argv, char **envp)
+{
+	char	*result;
+	
+	if (argc != 2)
+	{
+		printf("Usage: %s <command>\n", argv[0]);
+        return (1);
+	}
+
+	result = ft_access(argv[1], envp);
+	if (result)
+    {
+        printf("Executable path: %s\n", result);
+        free(result);
+    }
+	else
+	{
+		 printf("Command not found: %s\n", argv[1]);
+	}
+	return (0);
+}

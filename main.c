@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "pipex.h"
-
+// ft_access
 int main(int argc, char **argv, char **envp)
 {
 	char	*result;
