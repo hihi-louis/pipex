@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 20:36:21 by tripham           #+#    #+#             */
-/*   Updated: 2024/11/04 20:50:50 by tripham          ###   ########.fr       */
+/*   Created: 2024/11/19 19:55:01 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/02 16:52:43 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	ft_putstr_fd(int fd, char *str)
 {
-	if (!s)
-		return ;
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	int	len;
+	int	temp;
+
+	len = 0;
+	if (!str)
+		return (write(fd, "(null)", 6));
+	while (*str)
+	{
+		temp = write(fd, str++, 1);
+		if (temp == -1)
+			return (-1);
+		len += temp;
+	}
+	return (len);
 }

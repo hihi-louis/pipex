@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+         #
+#    By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/25 21:13:56 by tripham           #+#    #+#              #
-#    Updated: 2025/01/01 10:48:34 by trietpham        ###   ########.fr        #
+#    Updated: 2025/01/02 16:46:06 by tripham          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes -Ilibft
 
 # Project files
 NAME = a.out
-SRCS = ft_access.c main.c
+SRCS = ft_access.c ft_perror.c ft_strerror.c
 OBJS = $(SRCS:.c=.o)
 
 # Libft
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = mylib/srcs/libft
+LIBFT = $(LIBFT_DIR)/mylib.a
 
 # Rules
 all: $(NAME)

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 19:55:01 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/01 18:52:46 by tripham          ###   ########.fr       */
+/*   Created: 2024/12/24 17:34:45 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/02 16:52:01 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/libft.h"
 
-int	ft_putstr(int fd, char *str)
+char *ft_strjoin_free(char *s1, const char *s2)
 {
-	int	len;
-	int	temp;
+    char	*result;
 
-	len = 0;
-	if (!str)
-		return (write(fd, "(null)", 6));
-	while (*str)
-	{
-		temp = write(fd, str++, 1);
-		if (temp == -1)
-			return (-1);
-		len += temp;
-	}
-	return (len);
+	result = ft_strjoin(s1, s2);
+    free(s1);
+    return result;
 }

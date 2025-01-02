@@ -6,11 +6,11 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:50 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/01 18:56:09 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/02 16:52:25 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/libft.h"
 
 static int	check_format_fd(int fd, const char format, va_list args)
 {

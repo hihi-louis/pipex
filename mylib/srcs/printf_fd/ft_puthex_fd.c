@@ -6,11 +6,11 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:55:03 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/01 18:52:35 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/02 16:53:03 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../includes/libft.h"
 
 static int	putchr_hex_fd(int fd, unsigned long long n, const char type)
 {
@@ -35,7 +35,7 @@ int	ft_puthex_fd(int fd, unsigned long long n, const char type)
 		if (temp == -1)
 			return (-1);
 		len += temp;
-		temp = ft_puthex(fd, n % 16, type);
+		temp = ft_puthex_fd(fd, n % 16, type);
 		if (temp == -1)
 			return (-1);
 		len += temp;

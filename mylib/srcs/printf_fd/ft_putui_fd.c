@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putui_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 20:41:59 by tripham           #+#    #+#             */
-/*   Updated: 2024/11/10 19:08:42 by tripham          ###   ########.fr       */
+/*   Created: 2024/11/19 19:55:05 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/02 16:52:46 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putui_fd(int fd, unsigned int n)
 {
-	long	nbr;
+	int	len;
+	int	temp;
 
-	nbr = (long)n;
-	if (nbr < 0)
+	len = 0;
+	if (n >= 10)
 	{
-		write(fd, "-", 1);
-		nbr *= -1;
+		temp = ft_putui_fd(fd, n / 10);
+		if (temp == -1)
+			return (-1);
+		len += temp;
 	}
-	if (nbr > 9)
-	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putnbr_fd(nbr % 10, fd);
-	}
-	else
-	{
-		ft_putchar_fd(nbr + '0', fd);
-	}
+	temp = ft_putchar_fd(fd, n % 10 + '0');
+	if (temp == -1)
+		return (-1);
+	len += temp;
+	return (len);
 }
