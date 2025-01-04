@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 03:24:04 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:35:57 by tripham          ###   ########.fr       */
+/*   Created: 2025/01/05 00:29:05 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/05 01:37:24 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+# include "./includes/pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void child_fork(t_pipex *pipex, int *pipe)
 {
-	t_pipex pipex;
-	
-	if (argc != 5)
+	pipex->pid = fork();
+	if (pipex->pid < 0)
 	{
-		ft_printf_fd(2, "pipex: Invalid number of arguments.\n");
+		while (pipex->fork_counts--)
+			waitpid(0, &pipex->wait_status, 0);
+		perror("pipex: fork failed: \n");
+		close(pipe[0]);
+		close(pipe[1]);
 		exit(1);
 	}
-	pipex.argc = argc;
-	pipex.argv = argv;
-	pipex.envp = envp;
-	pipex.exit_status = 0;
-	pipex.fork_times = 0;
-	pipexshell(&pipex);
-	exit(pipex.exit_status);	
 }
