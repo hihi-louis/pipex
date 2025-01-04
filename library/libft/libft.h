@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:36:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/02 16:35:38 by tripham          ###   ########.fr       */
+/*   Updated: 2024/11/16 20:21:31 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdarg.h>
 
 typedef unsigned char	t_byte;
 
@@ -30,24 +29,31 @@ typedef struct s_list
 void					*ft_memset(void *ptr, int value, size_t num);
 void					ft_bzero(void *s, size_t len);
 void					*ft_memcpy(void *des, const void *src, size_t len);
-void					*ft_memmove(void *dest_str, const void *src_str, size_t numBytes);
+void					*ft_memmove(void *dest_str, const void *src_str,
+							size_t numBytes);
 void					*ft_memchr(const void *str, int c, size_t n);
 void					*ft_calloc(size_t count, size_t size);
 char					*ft_strdup(const char *src);
 char					*ft_strchr(const char *s, int c);
 char					*ft_strrchr(const char *s, int c);
-char					*ft_strnstr(const char *big, const char *small, size_t len);
-char					*ft_substr(const char *s, unsigned int start, size_t len);
+char					*ft_strnstr(const char *big, const char *small,
+							size_t len);
+char					*ft_substr(const char *s, unsigned int start,
+							size_t len);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*ft_itoa(int n);
 char					**ft_split(char const *s, char c);
 char					*ft_strmapi(char const *s, char (*f)(unsigned int,
 								char));
 void					ft_striteri(char *s, void (*f)(unsigned int, char *));
+void					ft_putchar_fd(char c, int fd);
 char					*ft_strtrim(char const *s1, char const *set);
-
+void					ft_putstr_fd(char *s, int fd);
+void					ft_putendl_fd(char *s, int fd);
+void					ft_putnbr_fd(int n, int fd);
 size_t					ft_strlen(const char *str);
-size_t					ft_strlcat(char *des, const char *src, size_t sizeOfDes);
+size_t					ft_strlcat(char *des, const char *src,
+							size_t sizeOfDes);
 size_t					ft_strlcpy(char *des, const char *src, size_t size);
 
 int						ft_isalpha(int c);
@@ -69,17 +75,7 @@ void					ft_lstadd_back(t_list **lst, t_list *new);
 void					ft_lstdelone(t_list *lst, void (*del)(void *));
 void					ft_lstclear(t_list **lst, void (*del)(void *));
 void					ft_lstiter(t_list *lst, void (*f)(void *));
-t_list					*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
-void	ft_free_array(char **array);
-char	*ft_strjoin_free(char *s1, const char *s2);
-
-int	ft_putchar_fd(int fd, char c);
-int	ft_putnbr_fd(int fd, int n);
-int	ft_putstr_fd(int fd, char *str);
-int	ft_putpointer_fd(int fd, unsigned long long p);
-int	ft_puthex_fd(int fd, unsigned long long n, const char type);
-int	ft_putui_fd(int fd, unsigned int n);
-int	ft_printf_fd(int fd, const char *format, ...);
+t_list					*ft_lstmap(t_list *lst, void *(*f)(void *),
+							void (*del)(void *));
 
 #endif

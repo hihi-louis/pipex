@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putpointer_fd.c                                 :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 19:54:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/02 16:52:40 by tripham          ###   ########.fr       */
+/*   Created: 2024/11/04 20:41:59 by tripham           #+#    #+#             */
+/*   Updated: 2024/11/10 19:08:42 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
-int	ft_putpointer_fd(int fd, unsigned long long p)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int	len;
-	int	temp;
+	long	nbr;
 
-	len = 0;
-	if (p == 0)
-		return (write(fd, "(nil)", 5));
-	temp = write(fd, "0x", 2);
-	if (temp == -1)
-		return (-1);
-	len += temp;
-	temp = ft_puthex_fd(fd, p, 'x');
-	if (temp == -1)
-		return (-1);
-	len += temp;
-	return (len);
+	nbr = (long)n;
+	if (nbr < 0)
+	{
+		write(fd, "-", 1);
+		nbr *= -1;
+	}
+	if (nbr > 9)
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+		ft_putnbr_fd(nbr % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(nbr + '0', fd);
+	}
 }

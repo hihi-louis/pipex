@@ -6,11 +6,11 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:50:55 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/02 16:52:28 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:11:00 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "ft_printf.h"
 
 int	ft_putchar_fd(int fd, char c)
 {

@@ -6,11 +6,11 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:55:03 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/02 16:53:03 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:11:03 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "ft_printf.h"
 
 static int	putchr_hex_fd(int fd, unsigned long long n, const char type)
 {
