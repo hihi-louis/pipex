@@ -24,6 +24,8 @@ typedef struct s_pipex
 	pid_t			pid;           // Process ID for forked child process
 }	t_pipex;
 
-void child_fork(t_pipex *pipex, int *pipe)
+void child_fork(t_pipex *pipex, int *pipe);
+
+void	redirect(int infile, int sdtin, int outfile, int stdout);
 
 #endif
