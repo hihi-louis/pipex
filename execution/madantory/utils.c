@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:29:05 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/05 22:04:53 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:42:32 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,25 @@ void	redirect(int infile, int sdtin, int outfile, int stdout)
 	}
 	close(infile);
 	close(outfile);
+}
+
+void	child_wait(t_pipex *pipex)
+{
+	while (pipex->fork_counts > 0)
+	{
+		pipex->pid = waitpid(-1, &pipex->wait_status, 0);
+		if (pipex->pid > 0)
+		{	
+			if (WIFEXITED(pipex->wait_status)) // if child process end normally
+				pipex->exit_status = WEXITSTATUS(pipex->wait_status); // got the code of exit
+			else if (WIFSIGNALED(pipex->wait_status)) // if child process end with signal
+				pipex->exit_status = 128 + WTERMSIG(pipex->wait_status); // assign signal code with 128
+			pipex->fork_counts--; 
+		}
+		else if (pipex->pid == -1)
+		{
+			perror("pipex: Waitpid Error");
+			break;
+		}
+	}
 }

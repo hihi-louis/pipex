@@ -1,63 +1,61 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
-#include <fcntl.h>
 
-typedef struct s_pipex {
-    pid_t pid;           // Process ID
-    int fork_counts;     // Number of forks
-    int wait_status;     // Wait status for processes
+typedef struct s_pipex
+{
+    int fork_counts;      // Số lượng tiến trình con cần chờ
+    int wait_status;      // Lưu trạng thái trả về từ `waitpid`
+    int exit_status;      // Mã thoát của tiến trình con cuối cùng
+    pid_t pid;            // PID của tiến trình con
 } t_pipex;
 
-void child_fork(t_pipex *pipex, int *pipe)
+void child_wait(t_pipex *pipex)
 {
-    pipex->pid = fork();
-    if (pipex->pid < 0)  // If fork fails
+    while (pipex->fork_counts > 0)  // Chờ tất cả các tiến trình con
     {
-        while (pipex->fork_counts--)
-            waitpid(0, &pipex->wait_status, 0);  // Wait for other processes if any
-        perror("pipex: fork failed: \n");
-        close(pipe[0]);  // Close pipe ends
-        close(pipe[1]);
-        exit(1);  // Exit with error
+        pipex->pid = wait(&pipex->wait_status);  // Lưu PID trả về từ `waitpid()` vào `pipex->pid`
+        if (pipex->pid > 0)  // Nếu có tiến trình con kết thúc
+        {
+            if (WIFEXITED(pipex->wait_status))  // Nếu tiến trình con kết thúc bình thường
+                pipex->exit_status = WEXITSTATUS(pipex->wait_status);  // Lấy mã thoát
+            else if (WIFSIGNALED(pipex->wait_status))  // Nếu tiến trình con bị dừng bởi tín hiệu
+                pipex->exit_status = 128 + WTERMSIG(pipex->wait_status);  // Gán mã tín hiệu cộng 128
+            printf("Child process with PID %d finished. Exit status: %d\n", pipex->pid, pipex->exit_status);
+            pipex->fork_counts--;  // Giảm số lượng tiến trình cần chờ
+        }
+        else if (pipex->pid == -1)  // Nếu `waitpid` gặp lỗi
+        {
+            perror("waitpid error");
+            break;
+        }
     }
 }
 
-int main()
+int main(void)
 {
     t_pipex pipex;
-    int pipe_fds[2];  // Pipe ends
+    pipex.fork_counts = 5;  // Giả sử chúng ta sẽ tạo 3 tiến trình con
 
-    // Initialize pipe
-    if (pipe(pipe_fds) == -1)
+    for (int i = 0; i < 5; i++)
     {
-        perror("Error creating pipe");
-        exit(1);
+        pipex.pid = fork();  // Tạo tiến trình con
+        // pipex.pid = -5;
+        if (pipex.pid == 0)
+        {
+            printf("Child process %d running...\n", i + 1);
+            sleep(i + 5);  // Tiến trình con "ngủ" để mô phỏng thời gian chạy
+            exit(i);  // Kết thúc tiến trình con với mã thoát là `i`
+        }
+        else if (pipex.pid < 0)
+        {
+            perror("fork error");
+            exit(1);
+        }
     }
 
-    pipex.fork_counts = 1;  // Set to 1 for a single fork
-
-    printf("Forking process...\n");
-
-    // Test child_fork
-    child_fork(&pipex, pipe_fds);
-
-    if (pipex.pid == 0)  // Child process
-    {
-        printf("Child process (PID: %d) running.\n", getpid());
-        close(pipe_fds[0]);  // Close unused pipe read end
-        close(pipe_fds[1]);  // Close write end after use
-        exit(0);  // Exit child process
-    }
-    else  // Parent process
-    {
-        printf("Parent process (PID: %d) waiting for child.\n", getpid());
-        close(pipe_fds[0]);  // Close unused pipe read end
-        close(pipe_fds[1]);  // Close unused pipe write end
-        waitpid(pipex.pid, NULL, 0);  // Wait for child process to finish
-        printf("Child process finished.\n");
-    }
-
+    child_wait(&pipex);  // Gọi hàm `child_wait` để chờ tất cả các tiến trình con hoàn thành
+    printf("All child processes finished.\n");
     return 0;
 }

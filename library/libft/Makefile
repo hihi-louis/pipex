@@ -36,7 +36,8 @@ SOURCES :=     ft_putnbr_fd.c	\
 			ft_strnstr.c	\
 			ft_strrchr.c	\
 			ft_tolower.c	\
-			ft_toupper.c
+			ft_toupper.c	\
+			ft_is_all_white_spaces.c
 
 BONUS    :=    ft_lstnew_bonus.c    \
             		ft_lstadd_front_bonus.c    \

@@ -18,7 +18,7 @@ typedef struct s_pipex
 	int				exit_status;   // Stores the final exit status
 	int				wait_status;   // Stores the status returned by waitpid()
 	int				fork_counts;    // Counter for the number of forks
-	int				*track;        // Pointer to track processes or resource handling
+	//int				*track;        // Pointer to track processes or resource handling
 	char			**argv;        // Command-line arguments
 	char			**envp;        // Environment variables
 	pid_t			pid;           // Process ID for forked child process
@@ -28,4 +28,5 @@ void child_fork(t_pipex *pipex, int *pipe);
 
 void	redirect(int infile, int sdtin, int outfile, int stdout);
 
+void	child_wait(t_pipex *pipex);
 #endif
