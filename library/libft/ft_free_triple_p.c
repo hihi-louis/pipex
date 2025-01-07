@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_command.c                                    :+:      :+:    :+:   */
+/*   ft_free_triple_p.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 15:52:06 by tripham          ###   ########.fr       */
+/*   Created: 2025/01/07 16:16:03 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/07 16:25:45 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	**split_command(char *command)
-{
-	int		words;
-	char	**array;
+#include "libft.h"
 
-	if 
+void	ft_free_triple_p(void ***arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr || !*arr)
+		return ;
+	while ((*arr)[i])
+	{
+		ft_free_double_p((void **)(*arr)[i]);
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
 }
