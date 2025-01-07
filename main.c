@@ -1,61 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
+#include<unistd.h>
 
-typedef struct s_pipex
+// Hàm `count_words()` từ chương trình của bạn
+static int count_words(char *command)
 {
-    int fork_counts;      // Số lượng tiến trình con cần chờ
-    int wait_status;      // Lưu trạng thái trả về từ `waitpid`
-    int exit_status;      // Mã thoát của tiến trình con cuối cùng
-    pid_t pid;            // PID của tiến trình con
-} t_pipex;
+    int words = 0;
+    int i = 0;
+    char quote;
 
-void child_wait(t_pipex *pipex)
-{
-    while (pipex->fork_counts > 0)  // Chờ tất cả các tiến trình con
+    while (command[i])
     {
-        pipex->pid = wait(&pipex->wait_status);  // Lưu PID trả về từ `waitpid()` vào `pipex->pid`
-        if (pipex->pid > 0)  // Nếu có tiến trình con kết thúc
+        if (command[i] == 39 || command[i] == 34)  // Nếu là dấu nháy đơn (') hoặc nháy kép (")
         {
-            if (WIFEXITED(pipex->wait_status))  // Nếu tiến trình con kết thúc bình thường
-                pipex->exit_status = WEXITSTATUS(pipex->wait_status);  // Lấy mã thoát
-            else if (WIFSIGNALED(pipex->wait_status))  // Nếu tiến trình con bị dừng bởi tín hiệu
-                pipex->exit_status = 128 + WTERMSIG(pipex->wait_status);  // Gán mã tín hiệu cộng 128
-            printf("Child process with PID %d finished. Exit status: %d\n", pipex->pid, pipex->exit_status);
-            pipex->fork_counts--;  // Giảm số lượng tiến trình cần chờ
+            words++;
+            quote = command[i];
+            i++;
+            while (command[i] && command[i] != quote)
+                i++;
+            if (command[i] != quote)  // Nếu thiếu dấu đóng nháy
+            {
+                fprintf(stderr, "pipex: Missing %c\n", quote);
+                exit(1);
+            }
+            i++;
         }
-        else if (pipex->pid == -1)  // Nếu `waitpid` gặp lỗi
+        else if (command[i] != 32)  // Nếu không phải khoảng trắng
         {
-            perror("waitpid error");
-            break;
+            words++;
+            while (command[i] && command[i] != 32 && command[i] != 34 && command[i] != 39)
+            {
+                if (command[i] == '\\' && command[i + 1])
+                    i += 2;  // Bỏ qua ký tự escape và ký tự sau nó
+                else
+                    i++;
+            }
         }
+        else
+            i++;
     }
+    return words;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    t_pipex pipex;
-    pipex.fork_counts = 5;  // Giả sử chúng ta sẽ tạo 3 tiến trình con
-
-    for (int i = 0; i < 5; i++)
+    if (argc < 2)  // Nếu người dùng không nhập chuỗi lệnh
     {
-        pipex.pid = fork();  // Tạo tiến trình con
-        // pipex.pid = -5;
-        if (pipex.pid == 0)
-        {
-            printf("Child process %d running...\n", i + 1);
-            sleep(i + 5);  // Tiến trình con "ngủ" để mô phỏng thời gian chạy
-            exit(i);  // Kết thúc tiến trình con với mã thoát là `i`
-        }
-        else if (pipex.pid < 0)
-        {
-            perror("fork error");
-            exit(1);
-        }
+        fprintf(stderr, "Usage: %s <command>\n", argv[0]);
+        exit(1);
     }
 
-    child_wait(&pipex);  // Gọi hàm `child_wait` để chờ tất cả các tiến trình con hoàn thành
-    printf("All child processes finished.\n");
+    for (int i = 1; i < argc; i++)  // Duyệt qua các chuỗi lệnh người dùng nhập
+    {
+        printf("Command %d: \"%s\"\n", i, argv[i]);
+        int words = count_words(argv[i]);
+        printf("Number of words: %d\n\n", words);
+    }
+
     return 0;
 }

@@ -29,4 +29,10 @@ void child_fork(t_pipex *pipex, int *pipe);
 void	redirect(int infile, int sdtin, int outfile, int stdout);
 
 void	child_wait(t_pipex *pipex);
+
+void	handle_command_error(char **command, char *message);
+
+int skip_words(char *command, int i);
+
+int	skip_quotes(char *command, int i);
 #endif

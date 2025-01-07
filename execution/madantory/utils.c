@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:29:05 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/06 17:42:32 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/07 21:07:44 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,31 @@ void	child_wait(t_pipex *pipex)
 		}
 	}
 }
+
+int	skip_quotes(char *command, int i)
+{
+	char quote;
+
+	quote = command[i];
+	i++;
+	while (command[i] && command[i] != quote)
+		i++;
+	if (command[i] != quote)
+	{
+		ft_printf_fd(2, "pipex: Missing %c\n", quote);
+		exit (1);
+	}
+	return (i);
+}
+
+int skip_words(char *command, int i)
+{
+	while (command[i] && command[i] != 32 && command[i] != 34 && command[i] != 39)
+	{
+		if (command[i] == '\\' && command[i + 1] != '\0')
+			i += 2;
+		else
+			i++;
+	}
+	return (i);
+} 
