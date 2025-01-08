@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:29:05 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 21:07:44 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/08 18:13:31 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,9 @@ int skip_words(char *command, int i)
 			i++;
 	}
 	return (i);
-} 
+}
+
+char	extract_word(char *command, int i)
+{
+	
+}

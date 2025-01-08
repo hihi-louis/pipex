@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 21:10:32 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/08 21:08:09 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,62 @@ static int	count_words(char *command)
 	}
 	return (words);
 }
+static char	*extract_word(char *command, int len)
+{
+	char	*word;
+	int	i;
+	int	j;
+
+	word = (char *)malloc(sizeof(char) * (len + 1));
+	//word = (char *)ft_calloc(len + 1, sizeof(char));
+	i = 0;
+	j = 0;
+	if (!word)
+		return (NULL);
+	while (i < len)
+	{
+		if ((command[0] == 34 || command[0] == 39) && command[i] == command[0])
+			i++;
+		else if (command[0] != 34 && command[0] != 39 && command[i] == 32)
+			i++;
+		else
+		{
+			if (command[0] != 34 && command[0] != 39 && command[i] == '\\')
+				i++;
+			word[j++] = command[i++];
+		}
+	}
+	word[j] = '\0';
+	return (word);
+}
 
 statis char	**split_word(char *command, char **array, int words, int order)
 {
+	int	i;
+	char	qoute;
+
+	i = 0;
+	while (++oder < words)
+	{
+		while (*command == 32);
+			command++;
+		i = 0;
+		qoute = *command;
+		if (*command == 34 | *command == 39)
+			while (command[i] != qoute)
+				i++;
+		else
+			i = skip_words(command, 0)
+		array[order] = extract_word(command, i);
+		if (!array[order])
+		{
+			ft_free_double_p(array);
+			return (NULL);
+		}
+		if (*command == 39 || *command == 34 )
+			i++;
+		command += i;
+	}
 	
 }
 
