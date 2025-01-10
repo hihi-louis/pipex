@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/10 15:40:43 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/10 15:55:11 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,27 @@ static char	*extract_word(char *command, int len)
 	return (word);
 }
 
-statis char	**split_word(char *command, char **array, int words, int order)
+static char	**split_word(char *command, char **array, int words, int order)
 {
 	int	i;
 	char	qoute;
 
 	i = 0;
-	while (++oder < words)
+	while (++order < words)
 	{
-		while (*command == 32);
+		while (*command == 32)
 			command++;
 		i = 0;
 		qoute = *command;
 		if (*command == 34 | *command == 39)
-			while (command[++i] != qoute);
+			while (command[++i] != qoute)
+				;
 		else
 			i = skip_words(command, 0);
 		array[order] = extract_word(command, i);
 		if (!array[order])
 		{
-			ft_free_double_p(array);
+			ft_free_double_p((void **)array);
 			return (NULL);
 		}
 		if (*command == 39 || *command == 34 )
@@ -105,9 +106,9 @@ char	**split_command(char *command)
 	if (ft_is_all_white_spaces(command))
 		handle_command_error(&command, "Command not found");
 	words = count_words(command);
-	array = (char **)ft_calloc((word + 1), sizeof(char *);
+	array = (char **)ft_calloc((words + 1), sizeof(char *));
 	if (!array)
 		return (NULL);
 	array = split_word(command, array, words, -1);
-	
+	return (array);
 }

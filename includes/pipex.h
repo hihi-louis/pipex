@@ -5,7 +5,7 @@
 # include "../library/ft_printf_fd/ft_printf.h"
 # include <fcntl.h>
 # include <sys/wait.h>
-#include <sys/types.h>
+# include <sys/types.h>
 # include <stdio.h>
 # include <errno.h>
 # include <string.h>
@@ -35,4 +35,6 @@ void	handle_command_error(char **command, char *message);
 int skip_words(char *command, int i);
 
 int	skip_quotes(char *command, int i);
+
+char	**split_command(char *command);
 #endif
