@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/08 21:08:09 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/10 15:40:43 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,9 @@ statis char	**split_word(char *command, char **array, int words, int order)
 		i = 0;
 		qoute = *command;
 		if (*command == 34 | *command == 39)
-			while (command[i] != qoute)
-				i++;
+			while (command[++i] != qoute);
 		else
-			i = skip_words(command, 0)
+			i = skip_words(command, 0);
 		array[order] = extract_word(command, i);
 		if (!array[order])
 		{
@@ -93,7 +92,7 @@ statis char	**split_word(char *command, char **array, int words, int order)
 			i++;
 		command += i;
 	}
-	
+	return (array);
 }
 
 char	**split_command(char *command)
@@ -109,5 +108,6 @@ char	**split_command(char *command)
 	array = (char **)ft_calloc((word + 1), sizeof(char *);
 	if (!array)
 		return (NULL);
-	array = split_word()
+	array = split_word(command, array, words, -1);
+	
 }
