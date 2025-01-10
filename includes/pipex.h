@@ -37,4 +37,5 @@ int skip_words(char *command, int i);
 int	skip_quotes(char *command, int i);
 
 char	**split_command(char *command);
+
 #endif

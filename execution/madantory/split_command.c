@@ -6,13 +6,13 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/10 15:55:11 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/10 16:30:55 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
 
-static int	count_words(char *command)
+static int	words_count(char *command)
 {
 	int	words;
 	int	i;
@@ -25,26 +25,26 @@ static int	count_words(char *command)
 		{
 			words++;
 			i = skip_quotes(command, i);
-			i++; 
+			i++;
 		}
 		else if (command[i] != 32)
 		{
 			words++;
-			i = skip_words(command, i);	
+			i = skip_words(command, i);
 		}
 		else
 			i++;
 	}
 	return (words);
 }
+
 static char	*extract_word(char *command, int len)
 {
 	char	*word;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	word = (char *)malloc(sizeof(char) * (len + 1));
-	//word = (char *)ft_calloc(len + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	if (!word)
@@ -68,18 +68,17 @@ static char	*extract_word(char *command, int len)
 
 static char	**split_word(char *command, char **array, int words, int order)
 {
-	int	i;
-	char	qoute;
+	int		i;
+	char	quote;
 
-	i = 0;
 	while (++order < words)
 	{
 		while (*command == 32)
 			command++;
 		i = 0;
-		qoute = *command;
+		quote = *command;
 		if (*command == 34 | *command == 39)
-			while (command[++i] != qoute)
+			while (command[++i] != quote)
 				;
 		else
 			i = skip_words(command, 0);
@@ -89,7 +88,7 @@ static char	**split_word(char *command, char **array, int words, int order)
 			ft_free_double_p((void **)array);
 			return (NULL);
 		}
-		if (*command == 39 || *command == 34 )
+		if (*command == 39 || *command == 34)
 			i++;
 		command += i;
 	}
@@ -105,7 +104,7 @@ char	**split_command(char *command)
 		return (NULL);
 	if (ft_is_all_white_spaces(command))
 		handle_command_error(&command, "Command not found");
-	words = count_words(command);
+	words = words_count(command);
 	array = (char **)ft_calloc((words + 1), sizeof(char *));
 	if (!array)
 		return (NULL);
