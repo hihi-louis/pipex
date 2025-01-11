@@ -6,15 +6,19 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:15:23 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 16:10:02 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/11 04:33:31 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
 
-void	handle_execute_error(char *command_path, char *splitted_command)
+void	handle_execution_error(char *command_path, char **splitted_command)
 {
-	
+	ft_printf_fd(2, "pipex: %s: %s\n", *splitted_command, strerror(errno));
+	if (command_path)
+		free(command_path);
+	ft_free_double_p(splitted_command);
+	exit(126);
 }
 
 void	handle_command_error(char **command, char *message)

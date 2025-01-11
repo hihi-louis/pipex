@@ -31,11 +31,14 @@ void	redirect(int infile, int sdtin, int outfile, int stdout);
 void	child_wait(t_pipex *pipex);
 
 void	handle_command_error(char **command, char *message);
+void	handle_execution_error(char *command_path, char **splitted_command);
 
 int skip_words(char *command, int i);
 
 int	skip_quotes(char *command, int i);
 
 char	**split_command(char *command);
+
+char	*found_command_path(char **splitted_command, char **envp)
 
 #endif
