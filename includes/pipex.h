@@ -44,4 +44,6 @@ char	*found_command_path(char **splitted_command, char **envp);
 void	execute_command(char *command, t_pipex *pipex);
 
 void	pipexshell(t_pipex *pipex);
+
+void	handle_open_error(char *file_name, int which_pipe_end);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:15:23 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/12 02:00:49 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/12 15:53:58 by trietpham        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,11 @@ void	handle_command_error(char **command, char *message)
 	free(*command);
 	*command = NULL;
 	exit(127);
+}
+
+void	handle_open_error(char *file_name, int which_pipe_end)
+{
+	ft_printf_fd(2, "pipex: %s: %s\n", file_name, strerror(errno));
+	close(which_pipe_end);
+	exit (1);
 }
