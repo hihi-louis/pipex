@@ -33,12 +33,15 @@ void	child_wait(t_pipex *pipex);
 void	handle_command_error(char **command, char *message);
 void	handle_execution_error(char *command_path, char **splitted_command);
 
-int skip_words(char *command, int i);
+int	skip_words(char *command, int i);
 
 int	skip_quotes(char *command, int i);
 
 char	**split_command(char *command);
 
-char	*found_command_path(char **splitted_command, char **envp)
+char	*found_command_path(char **splitted_command, char **envp);
 
+void	execute_command(char *command, t_pipex *pipex);
+
+void	pipexshell(t_pipex *pipex);
 #endif

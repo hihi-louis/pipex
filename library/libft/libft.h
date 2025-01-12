@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:36:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 16:25:36 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/12 01:55:54 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ char					**ft_split(char const *s, char c);
 char					*ft_strmapi(char const *s, char (*f)(unsigned int,
 								char));
 void					ft_striteri(char *s, void (*f)(unsigned int, char *));
-void					ft_putchar_fd(char c, int fd);
 char					*ft_strtrim(char const *s1, char const *set);
-void					ft_putstr_fd(char *s, int fd);
-void					ft_putendl_fd(char *s, int fd);
-void					ft_putnbr_fd(int n, int fd);
 size_t					ft_strlen(const char *str);
 size_t					ft_strlcat(char *des, const char *src,
 							size_t sizeOfDes);

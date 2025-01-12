@@ -3,11 +3,7 @@ NAME := libft.a
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
-SOURCES :=     ft_putnbr_fd.c	\
-			ft_putendl_fd.c	\
-			ft_putstr_fd.c	\
-			ft_putchar_fd.c	\
-			ft_striteri.c	\
+SOURCES :=	ft_striteri.c	\
 			ft_strmapi.c	\
 			ft_itoa.c	\
 			ft_split.c	\
@@ -37,7 +33,9 @@ SOURCES :=     ft_putnbr_fd.c	\
 			ft_strrchr.c	\
 			ft_tolower.c	\
 			ft_toupper.c	\
-			ft_is_all_white_spaces.c
+			ft_is_all_white_spaces.c	\
+			ft_free_double_p.c	\
+			ft_free_triple_p.c
 
 BONUS    :=    ft_lstnew_bonus.c    \
             		ft_lstadd_front_bonus.c    \

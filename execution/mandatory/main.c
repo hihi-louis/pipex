@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 20:36:21 by tripham           #+#    #+#             */
-/*   Updated: 2024/11/04 20:50:50 by tripham          ###   ########.fr       */
+/*   Created: 2025/01/04 03:24:04 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/12 02:01:42 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "./includes/pipex.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	main(int argc, char **argv, char **envp)
 {
-	if (!s)
-		return ;
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	t_pipex pipex;
+	
+	if (argc != 5)
+	{
+		ft_printf_fd(2, "pipex: Invalid number of arguments.\n");
+		exit(1);
+	}
+	pipex.argc = argc;
+	pipex.argv = argv;
+	pipex.envp = envp;
+	pipex.exit_status = 0;
+	pipex.fork_counts = 0;
+	pipexshell(&pipex);
+	exit(pipex.exit_status);
 }

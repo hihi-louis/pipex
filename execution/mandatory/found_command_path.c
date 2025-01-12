@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:44:37 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/11 03:26:28 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/12 02:00:23 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ static char	*get_command_path(char **envp_paths, char *command)
 	while (*envp_paths)
 	{
 		command_path = join_command_path(*(envp_paths)++, command);
-		if (!command_path)
-			{
-				ft_free_double_p(envp_paths);
-				return (NULL);
-			}
 		if (access(command_path, F_OK) == 0)
 			return (command_path);
 		free(command_path);
@@ -73,7 +68,7 @@ char	*found_command_path(char **splitted_command, char **envp)
 		if(access(*splitted_command, F_OK) == 0)
 			return (ft_strdup(*splitted_command));
 		else
-			handle_command_error(splitted_command, "No such file or directory");
+			handle_command_error(splitted_command, "Is directory"); // function access check
 	}
 	envp_paths = found_envp_path(envp, splitted_command);
 	if (!envp_paths)
@@ -81,6 +76,6 @@ char	*found_command_path(char **splitted_command, char **envp)
 	command_path = get_command_path(envp_paths, *splitted_command);
 	// if (!command_path)
 	// 	handle_command_error(splitted_command, "Command not found");
-	ft_free_double_p(envp_paths);
+	ft_free_double_p((void **)envp_paths);
 	return (command_path);
 }
