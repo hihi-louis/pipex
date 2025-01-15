@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_double_p.c                                 :+:      :+:    :+:   */
+/*   ft_put_base_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 16:13:34 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/15 19:23:27 by tripham          ###   ########.fr       */
+/*   Created: 2025/01/13 20:21:02 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/13 20:37:04 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_free_double_p(void **ptr)
+int	ft_putbase_fd(int fd, unsigned long nb, char *base)
 {
-	int	i;
-	char **arr;
+	unsigned int	len;
+	unsigned int	baselen;
+	int				check;
 
-	arr = (char **)ptr;
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
+	len = 0;
+	check = 0;
+	baselen = ft_strlen(base);
+	if (nb >= baselen)
 	{
-		free(arr[i]);
-		arr[i] = NULL;
-		i++;
+		check = ft_putbase_fd(fd, nb / baselen, base);
+		if (check == -1)
+			return (-1);
+		else
+			len += check;
 	}
-	free(arr);
-	arr = NULL;
+	if (ft_putchar_fd(fd, *(base + (nb % baselen))) == -1)
+		return (-1);
+	return (++len);
 }

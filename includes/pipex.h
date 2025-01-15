@@ -46,4 +46,6 @@ void	execute_command(char *command, t_pipex *pipex);
 void	pipexshell(t_pipex *pipex);
 
 void	handle_open_error(char *file_name, int which_pipe_end);
+int	access_check(char **splitted_command);
+void	is_dir_error(char **splitted_command);
 #endif

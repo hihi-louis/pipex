@@ -6,28 +6,13 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:55:05 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:11:15 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:25:09 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putui_fd(int fd, unsigned int n)
+int	ft_putuint_fd(int fd, unsigned int n)
 {
-	int	len;
-	int	temp;
-
-	len = 0;
-	if (n >= 10)
-	{
-		temp = ft_putui_fd(fd, n / 10);
-		if (temp == -1)
-			return (-1);
-		len += temp;
-	}
-	temp = ft_putchar_fd(fd, n % 10 + '0');
-	if (temp == -1)
-		return (-1);
-	len += temp;
-	return (len);
+	return (ft_putbase_fd(fd, n, "0123456789"));
 }

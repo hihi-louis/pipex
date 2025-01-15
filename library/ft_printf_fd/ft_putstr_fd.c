@@ -6,26 +6,19 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:55:01 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:11:12 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:31:53 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "../libft/libft.h"
 
-int	ft_putstr_fd(int fd, char *str)
+int	ft_putstr_fd(int fd, char *s)
 {
-	int	len;
-	int	temp;
 
-	len = 0;
-	if (!str)
+	if (!s)
 		return (write(fd, "(null)", 6));
-	while (*str)
-	{
-		temp = write(fd, str++, 1);
-		if (temp == -1)
-			return (-1);
-		len += temp;
-	}
-	return (len);
+	if (write(fd, s, ft_strlen(s)) == -1)
+		return (-1);
+	return (ft_strlen(s));
 }

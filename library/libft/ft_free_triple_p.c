@@ -6,24 +6,24 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:16:03 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/07 16:25:45 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 17:10:28 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_triple_p(void ***arr)
+void	ft_free_triple_p(char ***arr)
 {
 	int	i;
 
 	i = 0;
 	if (!arr || !*arr)
 		return ;
-	while ((*arr)[i])
+	if (*arr)
 	{
-		ft_free_double_p((void **)(*arr)[i]);
-		i++;
+		while ((*arr)[i] != NULL)
+			free((*arr)[i++]);
+		free(*arr);
+		*arr = NULL;
 	}
-	free(*arr);
-	*arr = NULL;
 }

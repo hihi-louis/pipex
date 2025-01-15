@@ -6,27 +6,21 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:11:09 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:31:32 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putpointer_fd(int fd, unsigned long long p)
+int	ft_putpointer_fd(int fd, void *p)
 {
 	int	len;
-	int	temp;
 
-	len = 0;
-	if (p == 0)
-		return (write(fd, "(nil)", 5));
-	temp = write(fd, "0x", 2);
-	if (temp == -1)
+	if (!p)
+		return (ft_putstr_fd(fd, "0x0"));
+	len = ft_putstr_fd(fd, "0x");
+	if (len == -1)
 		return (-1);
-	len += temp;
-	temp = ft_puthex_fd(fd, p, 'x');
-	if (temp == -1)
-		return (-1);
-	len += temp;
+	len += ft_putbase_fd(fd, (unsigned long)p, "0123456789abcdef");
 	return (len);
 }

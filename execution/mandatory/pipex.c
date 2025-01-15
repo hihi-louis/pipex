@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:51:29 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/12 15:57:06 by trietpham        ###   ########.fr       */
+/*   Updated: 2025/01/15 23:02:10 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static void first_command(t_pipex *pipex)
 
 static void	next_command(t_pipex *pipex)
 {
+	if (pipex->argv[pipex->argc - 2][0] == '\0')
+    {
+        ft_printf_fd(2, "pipex: : command not found\n");
+        pipex->exit_status = 127;  // Lỗi command not found
+        return;
+    }
 	child_fork(pipex, pipex->pipe);
 	if (pipex->pid == 0)
 	{
@@ -55,27 +61,5 @@ void	pipexshell(t_pipex *pipex)
 	next_command(pipex);
 	child_wait(pipex);
 }
-
-
-// ft_printf_fd(2, "pipex: %s: %s\n", pipex->argv[1], strerror(errno));
-			// close (pipex->pipe[1]);
-			// exit (1);
-
-
-// ft_printf_fd(2, "pipex: %s: %s\n", pipex->argv[pipex->argc - 1], strerror(errno));
-			// close(pipex->pipe[0]);
-			// exit (1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 

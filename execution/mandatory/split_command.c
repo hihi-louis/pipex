@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/10 16:30:55 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/15 22:08:13 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	words_count(char *command)
 		{
 			words++;
 			i = skip_quotes(command, i);
+			if (i == -1)
+				return (-1);
 			i++;
 		}
 		else if (command[i] != 32)
@@ -58,7 +60,10 @@ static char	*extract_word(char *command, int len)
 		else
 		{
 			if (command[0] != 34 && command[0] != 39 && command[i] == '\\')
-				i++;
+			{
+				if (command[i + 1] != '\0')
+					i++;
+			}
 			word[j++] = command[i++];
 		}
 	}
@@ -77,7 +82,7 @@ static char	**split_word(char *command, char **array, int words, int order)
 			command++;
 		i = 0;
 		quote = *command;
-		if (*command == 34 | *command == 39)
+		if (*command == 34 || *command == 39)
 			while (command[++i] != quote)
 				;
 		else
@@ -100,14 +105,26 @@ char	**split_command(char *command)
 	int		words;
 	char	**array;
 
-	if (!command)
+	if (!command || !*command)
 		return (NULL);
 	if (ft_is_all_white_spaces(command))
-		handle_command_error(&command, "Command not found");
+	{
+		handle_command_error(&command, "command not found");
+		return (NULL);
+	}
 	words = words_count(command);
+	if (words == -1)
+	{
+		handle_command_error(&command, "unmatched quotes");
+		return (NULL);
+	}
 	array = (char **)ft_calloc((words + 1), sizeof(char *));
 	if (!array)
 		return (NULL);
-	array = split_word(command, array, words, -1);
+	if (split_word(command, array, words, -1) == NULL)
+	{
+		ft_free_double_p((void **)array);
+		return (NULL);
+	}
 	return (array);
 }

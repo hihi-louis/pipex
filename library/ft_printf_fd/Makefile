@@ -10,7 +10,8 @@ SRCS := ft_printf_fd.c	\
 		ft_putnbr_fd.c	\
 		ft_putpointer_fd.c	\
 		ft_putstr_fd.c	\
-		ft_putui_fd.c
+		ft_putui_fd.c	\
+		ft_put_base_fd.c
 
 OBJ := $(SRCS:.c=.o)
 

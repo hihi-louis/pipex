@@ -6,58 +6,53 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:50 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:10:54 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:28:57 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "../libft/libft.h"
 
-static int	check_format_fd(int fd, const char format, va_list args)
+static int	ft_check_format_fd(int fd, va_list args, char c)
 {
-	if (format == 'c')
+	if (c == 'c')
 		return (ft_putchar_fd(fd, va_arg(args, int)));
-	else if (format == 'd' || format == 'i')
-		return (ft_putnbr_fd(fd, va_arg(args, int)));
-	else if (format == 'p')
-		return (ft_putpointer_fd(fd, (unsigned long long)va_arg(args, void *)));
-	else if (format == 's')
+	else if (c == 's')
 		return (ft_putstr_fd(fd, va_arg(args, char *)));
-	else if (format == 'x' || format == 'X')
-		return (ft_puthex_fd(fd, va_arg(args, unsigned int), format));
-	else if (format == 'u')
-		return (ft_putui_fd(fd, va_arg(args, unsigned int)));
-	else if (format == '%')
+	else if (c == 'p')
+		return (ft_putpointer_fd(fd, va_arg(args, void *)));
+	else if (c == 'd' || c == 'i')
+		return (ft_putnbr_fd(fd, va_arg(args, int)));
+	else if (c == 'u')
+		return (ft_putuint_fd(fd, va_arg(args, unsigned int)));
+	else if (c == 'x' || c == 'X')
+		return (ft_puthexa_fd(fd, va_arg(args, unsigned int), c));
+	else if (c == '%')
 		return (ft_putchar_fd(fd, '%'));
 	else
-	{
-		ft_putstr_fd(fd, "Error format\n");
 		return (-1);
-	}
 }
 
-int	ft_printf_fd(int fd, const char *format, ...)
+int	ft_printf_fd(int fd, const char *str, ...)
 {
-	va_list	args;
-	int		len;
-	int		check_error;
+	va_list			args;
+	unsigned int	len;
+	int				temp;
 
 	len = 0;
-	va_start(args, format);
-	while (*format)
+	if (!str)
+		return (-1);
+	va_start(args, str);
+	while (*str)
 	{
-		if (*format == '%')
-		{
-			format++;
-			check_error = check_format_fd(fd, *format, args);
-			if (check_error == -1)
-			{
-				return (va_end(args), -1);
-			}
-			len += check_error;
-		}
+		if (*str == '%' && ft_strchr("cspdiuxX%", *(str + 1)))
+			temp = ft_check_format_fd(fd, args, *(str++ + 1));
 		else
-			len += ft_putchar_fd(fd, *format);
-		format++;
+			temp = ft_putchar_fd(fd, *str);
+		if (temp == -1)
+			return (-1);
+		len += temp;
+		str++;
 	}
 	va_end(args);
 	return (len);

@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:51:00 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/04 18:11:06 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:18:48 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,25 @@
 
 int	ft_putnbr_fd(int fd, int n)
 {
-	int	len;
-	int	temp;
+	long			nb;
+	unsigned int	len;
+	int				check;
 
 	len = 0;
-	if (n == -2147483648)
-		return (write(fd, "-2147483648", 11));
-	if (n < 0)
+	check = 0;
+	nb = (long)n;
+	if (nb < 0)
 	{
-		temp = write(fd, "-", 1);
-		if (temp == -1)
+		if (ft_putchar_fd(fd, '-') == -1)
 			return (-1);
-		n = -n;
-		len += temp;
+		else
+			len = 1;
+		nb *= -1;
 	}
-	if (n >= 10)
-	{	
-		temp = ft_putnbr_fd(fd, n / 10);
-		if (temp == -1)
-			return (-1);
-		len += temp;
-	}
-	if (ft_putchar_fd(fd, n % 10 + '0') == -1)
+	check = ft_putbase_fd(fd, nb, "0123456789");
+	if (check == -1)
 		return (-1);
-	len++;
+	else
+		len += check;
 	return (len);
 }

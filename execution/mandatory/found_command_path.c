@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:44:37 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/12 02:00:23 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/15 22:09:48 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static char	*get_command_path(char **envp_paths, char *command)
 		if (access(command_path, F_OK) == 0)
 			return (command_path);
 		free(command_path);
+		command_path = NULL; //double check
 	}
 	return (NULL);
 }
@@ -62,20 +63,23 @@ char	*found_command_path(char **splitted_command, char **envp)
 {
 	char	**envp_paths;
 	char	*command_path;
-
+	int		status;
 	if (ft_strchr(*splitted_command, '/'))
 	{
-		if(access(*splitted_command, F_OK) == 0)
+		if(access_check(splitted_command) == 0)
 			return (ft_strdup(*splitted_command));
-		else
-			handle_command_error(splitted_command, "Is directory"); // function access check
+		if(access_check(splitted_command) == 1)
+			is_dir_error(splitted_command);
+		status = access_check(splitted_command);
+		ft_free_double_p((void **)splitted_command);
+		exit (status);
 	}
 	envp_paths = found_envp_path(envp, splitted_command);
 	if (!envp_paths)
 		return (NULL);
 	command_path = get_command_path(envp_paths, *splitted_command);
-	// if (!command_path)
-	// 	handle_command_error(splitted_command, "Command not found");
+	if (!command_path)
+		handle_command_error(splitted_command, "command not found");
 	ft_free_double_p((void **)envp_paths);
 	return (command_path);
 }
