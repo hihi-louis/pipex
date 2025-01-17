@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:13:34 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/15 19:23:27 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 02:59:37 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_free_double_p(void **ptr)
 {
-	int	i;
-	char **arr;
+	int		i;
+	char	**arr;
 
 	arr = (char **)ptr;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:24:04 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/14 19:29:21 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 02:40:08 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex pipex;
-	
+	t_pipex	pipex;
+
 	if (argc != 5)
 	{
 		ft_printf_fd(2, "pipex: Invalid number of arguments.\n");
@@ -24,8 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.argc = argc;
 	pipex.argv = argv;
 	pipex.envp = envp;
-	pipex.exit_status = 0;
-	pipex.fork_counts = 0;
+	pipex.error = 0;
 	pipexshell(&pipex);
-	exit(pipex.exit_status);
+	exit((pipex.error >> 8) & 255);
 }

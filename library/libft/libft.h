@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:36:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/15 19:24:04 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 03:03:39 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void					ft_lstiter(t_list *lst, void (*f)(void *));
 t_list					*ft_lstmap(t_list *lst, void *(*f)(void *),
 							void (*del)(void *));
 
-int	ft_is_all_white_spaces(char *command);
-void	ft_free_double_p(void **ptr);
-void	ft_free_triple_p(char ***arr);
+int						ft_is_all_white_spaces(char *command);
+void					ft_free_double_p(void **ptr);
+void					ft_free_triple_p(char ***arr);
 #endif

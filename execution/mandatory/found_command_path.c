@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:44:37 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/15 22:09:48 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 02:46:25 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 static char	**found_envp_path(char **envp, char **command)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			return ft_split(envp[i] + 5, ':');  // Tách các đường dẫn khi tìm thấy "PATH="
+			return (ft_split(envp[i] + 5, ':'));
 		i++;
 	}
 	handle_command_error(command, "No such file or directory");
-	return NULL;
+	return (NULL);
 }
 
 static char	*join_command_path(char *envp_path, char *command)
@@ -51,10 +52,9 @@ static char	*get_command_path(char **envp_paths, char *command)
 	while (*envp_paths)
 	{
 		command_path = join_command_path(*(envp_paths)++, command);
-		if (access(command_path, F_OK) == 0)
+		if (!command_path || access(command_path, F_OK) == 0)
 			return (command_path);
 		free(command_path);
-		command_path = NULL; //double check
 	}
 	return (NULL);
 }
@@ -63,23 +63,23 @@ char	*found_command_path(char **splitted_command, char **envp)
 {
 	char	**envp_paths;
 	char	*command_path;
-	int		status;
+
 	if (ft_strchr(*splitted_command, '/'))
 	{
-		if(access_check(splitted_command) == 0)
+		if (access(*splitted_command, F_OK) == 0)
 			return (ft_strdup(*splitted_command));
-		if(access_check(splitted_command) == 1)
-			is_dir_error(splitted_command);
-		status = access_check(splitted_command);
-		ft_free_double_p((void **)splitted_command);
-		exit (status);
+		else
+			handle_command_error(splitted_command, "No such file or directory");
 	}
 	envp_paths = found_envp_path(envp, splitted_command);
 	if (!envp_paths)
 		return (NULL);
 	command_path = get_command_path(envp_paths, *splitted_command);
 	if (!command_path)
+	{
+		ft_free_double_p((void **)envp_paths);
 		handle_command_error(splitted_command, "command not found");
+	}
 	ft_free_double_p((void **)envp_paths);
 	return (command_path);
 }

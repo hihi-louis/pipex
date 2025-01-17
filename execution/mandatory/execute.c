@@ -6,16 +6,22 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:53:34 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/14 19:10:01 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 02:41:29 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
+
 void	execute_command(char *command, t_pipex *pipex)
 {
 	char	**splitted_command;
 	char	*command_path;
 
+	if (!command || *command == '\0')
+	{
+		ft_printf_fd(2, "pipex: : command not found\n");
+		exit(127);
+	}
 	splitted_command = split_command(command);
 	if (!splitted_command)
 		exit (1);

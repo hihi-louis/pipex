@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: trietpham <trietpham@student.42.fr>        +#+  +:+       +#+         #
+#    By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/25 21:13:56 by tripham           #+#    #+#              #
-#    Updated: 2025/01/12 15:30:51 by trietpham        ###   ########.fr        #
+#    Updated: 2025/01/16 22:23:45 by tripham          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = ./execution/mandatory/execute.c ./execution/mandatory/found_command_path.c \
        ./execution/mandatory/handle_error.c ./execution/mandatory/main.c \
        ./execution/mandatory/pipex.c ./execution/mandatory/split_command.c \
-       ./execution/mandatory/utils.c
+       ./execution/mandatory/utils.c 
 
 # Source Object Files
 OBJS = ${SRCS:.c=.o}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 02:57:35 by tripham           #+#    #+#             */
+/*   Updated: 2025/01/17 02:57:51 by tripham          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -12,40 +24,25 @@
 
 typedef struct s_pipex
 {
-	int				argc;          // Number of arguments
-	int				fd[2];         // File descriptors (e.g., input/output files)
-	int				pipe[2];       // Pipe file descriptors (read/write ends)
-	int				exit_status;   // Stores the final exit status
-	int				wait_status;   // Stores the status returned by waitpid()
-	int				fork_counts;    // Counter for the number of forks
-	//int				*track;        // Pointer to track processes or resource handling
-	char			**argv;        // Command-line arguments
-	char			**envp;        // Environment variables
-	pid_t			pid;           // Process ID for forked child process
+	int				argc;
+	int				fd[2];
+	int				pipe[2];
+	int				error;
+	char			**argv;
+	char			**envp;
+	pid_t			pid;
 }	t_pipex;
 
-void child_fork(t_pipex *pipex, int *pipe);
-
 void	redirect(int infile, int sdtin, int outfile, int stdout);
-
-void	child_wait(t_pipex *pipex);
-
 void	handle_command_error(char **command, char *message);
 void	handle_execution_error(char *command_path, char **splitted_command);
-
-int	skip_words(char *command, int i);
-
-int	skip_quotes(char *command, int i);
-
+int		skip_words(char *command, int i);
+int		skip_quotes(char *command, int i);
 char	**split_command(char *command);
-
 char	*found_command_path(char **splitted_command, char **envp);
-
 void	execute_command(char *command, t_pipex *pipex);
-
 void	pipexshell(t_pipex *pipex);
-
 void	handle_open_error(char *file_name, int which_pipe_end);
-int	access_check(char **splitted_command);
-void	is_dir_error(char **splitted_command);
+void	handle_fork_error(int *pipe);
+void	create_pipe(int *pipe_id);
 #endif
