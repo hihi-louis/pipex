@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 03:24:04 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/17 02:40:08 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 19:17:54 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char **argv, char **envp)
 	pipex.argc = argc;
 	pipex.argv = argv;
 	pipex.envp = envp;
-	pipex.error = 0;
+	pipex.status_of_exit = 0;
+	pipex.fork_count = 0;
 	pipexshell(&pipex);
-	exit((pipex.error >> 8) & 255);
+	exit(pipex.status_of_exit);
 }

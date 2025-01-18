@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 02:57:35 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/17 02:57:51 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 18:55:53 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_pipex
 	char			**argv;
 	char			**envp;
 	pid_t			pid;
+	int				fork_count;
+	int				status_of_wait;
+	int				status_of_exit;
 }	t_pipex;
 
 void	redirect(int infile, int sdtin, int outfile, int stdout);
@@ -45,4 +48,5 @@ void	pipexshell(t_pipex *pipex);
 void	handle_open_error(char *file_name, int which_pipe_end);
 void	handle_fork_error(int *pipe);
 void	create_pipe(int *pipe_id);
+void	wait_child_process(t_pipex *pipex);
 #endif

@@ -6,21 +6,27 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:54:56 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/13 20:31:32 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/18 04:11:55 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putpointer_fd(int fd, void *p)
+char	*ft_putpointer_fd(uintptr_t nbr, int baselen, int low_up)
 {
-	int	len;
+	char	*first;
+	char	*second;
+	char	*wrote;
 
-	if (!p)
-		return (ft_putstr_fd(fd, "0x0"));
-	len = ft_putstr_fd(fd, "0x");
-	if (len == -1)
-		return (-1);
-	len += ft_putbase_fd(fd, (unsigned long)p, "0123456789abcdef");
-	return (len);
+	if (nbr == 0)
+		wrote = ft_strdup("(nil)");
+	else
+	{
+		first = ft_strdup("0x");
+		second = ft_putnbr_base_fd(nbr, baselen, low_up);
+		wrote = ft_strjoin(first, second);
+		free(first);
+		free(second);
+	}
+	return (wrote);
 }

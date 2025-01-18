@@ -6,13 +6,13 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:50:55 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/13 19:32:47 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/18 04:04:31 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar_fd(int fd, char c)
+char	*ft_putchar_fd(int c)
 {
-	return (write(fd, &c, 1));
+	return (ft_strdup((char *)&c));
 }

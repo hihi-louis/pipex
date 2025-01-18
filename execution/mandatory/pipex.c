@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:51:29 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/17 02:49:50 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/17 19:51:13 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	first_command(t_pipex *pipex)
 		redirect(pipex->fd[0], STDIN_FILENO, pipex->pipe[1], STDOUT_FILENO);
 		execute_command(pipex->argv[2], pipex);
 	}
+	pipex->fork_count++;
 	close(pipex->pipe[1]);
 }
 
@@ -50,8 +51,8 @@ static void	next_command(t_pipex *pipex)
 		redirect(pipex->pipe[0], 0, pipex->fd[1], 1);
 		execute_command(pipex->argv[pipex->argc - 2], pipex);
 	}
+	pipex->fork_count++;
 	close(pipex->pipe[0]);
-	waitpid(pipex->pid, &pipex->error, 0);
 }
 
 void	pipexshell(t_pipex *pipex)
@@ -59,6 +60,5 @@ void	pipexshell(t_pipex *pipex)
 	create_pipe(pipex->pipe);
 	first_command(pipex);
 	next_command(pipex);
-	while (wait(NULL) > 0)
-		;
+	wait_child_process(pipex);
 }
