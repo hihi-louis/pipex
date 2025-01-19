@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:12:26 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/17 19:50:38 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/19 14:27:04 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	words_count(char *command)
 		if (command[i] == 39 || command[i] == 34)
 		{
 			words++;
-			i = skip_quotes(command, i);
+			i = skip_quotes(command, i) + 1;
 		}
 		else if (command[i] != 32)
 		{

@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:25:27 by tripham           #+#    #+#             */
-/*   Updated: 2025/01/17 03:01:31 by tripham          ###   ########.fr       */
+/*   Updated: 2025/01/19 14:31:21 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_is_all_white_spaces(char *command)
 {
 	while (*command)
 	{
-		if (*command != ' ' && *command != '\t' && *command != '\n')
+		if (*command != 32 && (*command < 9 || *command > 13))
 			return (0);
 		command++;
 	}
